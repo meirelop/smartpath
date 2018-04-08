@@ -1,25 +1,26 @@
 (lp0
 (lp1
-S'Could not understand the speech'
+S'where to buy online'
 p2
 a(lp3
 (lp4
-g2
+S'you can buy onay in yellow onay station. It costs 400 tenge'
+p5
 aI1
-aaaa(lp5
-S'switch on'
-p6
-a(lp7
-(lp8
-S'Light is on'
-p9
+aaaa(lp6
+S'where is siren'
+p7
+a(lp8
+(lp9
+S'sayran locates on the intersection of streets tole bee and matezalka. You can get there at bus number 92'
+p10
 aI1
-aaaa(lp10
-S'switch off'
-p11
-a(lp12
-(lp13
-S'light is off'
-p14
+aaaa(lp11
+S'where to pay for parking'
+p12
+a(lp13
+(lp14
+S'For parking you can pay at the station where is right next to entrance'
+p15
 aI1
 aaaa.

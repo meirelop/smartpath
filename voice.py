@@ -19,12 +19,14 @@ def get_audio_text(filename):
     except Exception as e:
         print(e)
         text = "Could not understand the speech"
-    #os.remove(filename)
+    os.remove(filename)
+    print 'recognized text: %s' % text
     return text
 
 
 def getOutput(text):
     new_file = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)) + '.wav'
+    print 'new file: %s' % new_file
     tts = gTTS(text=text)
     tts.save(new_file)
     return new_file
@@ -48,6 +50,7 @@ def writeCorpus(corpus):
 
 
 def getAnswer(_input):
+    print '_input: %s' % _input
     corpus = readCorpus()
     output = ("I don't know what you're saying. Please teach me")
     for ind1 in range(len(corpus)):
@@ -58,6 +61,7 @@ def getAnswer(_input):
                 prob.append(corpus[ind1][1][ind2][1])
                 words.append(corpus[ind1][1][ind2][0])
             output = numpy.random.choice(words, p=numpy.array(prob)/sum(prob))
+    print 'output is: %s' % output
     return output
 
 
@@ -89,10 +93,16 @@ def getVoice(TOKEN,bot):
       with open('input.ogg', 'wb') as handle:
            for block in file.iter_content(1024):
               handle.write(block)
-  subprocess.call(['ffmpeg/bin/ffmpeg', '-i', 'input.ogg','input.wav'])
+  subprocess.call(['ffmpeg/bin/ffmpeg', '-i', 'input.ogg', 'input.wav'])
 
 
 def sendVoice(bot, chat_id):
     audio = open('output.wav', 'rb')
     bot.send_voice(chat_id, audio)
 
+corpus = [["where to buy online", [["you can buy onay in yellow onay station. It costs 400 tenge", 1]]],
+          ["where is siren", [["sayran locates on the intersection of streets tole bee and matezalka. "
+                                "You can get there at bus number 92" , 1]]],
+          ["where to pay for parking", [["For parking you can pay at the station where is right next to entrance", 1]]]
+          ]
+writeCorpus(corpus)

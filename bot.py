@@ -38,8 +38,6 @@ def send_welcome(message):
 def handle_voice(message):
     audio_path = get_audio(message.voice.file_id)
     audio_text = voice.get_audio_text(audio_path)
-    # if audio_text.lower() in ['hello', 'hi']:
-    #     print 'switched'
     response = voice.getOutput(voice.getAnswer(audio_text))
     bot.send_audio(message.chat.id, open(response, 'rb'))
 
