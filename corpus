@@ -1,0 +1,25 @@
+(lp0
+(lp1
+S'Could not understand the speech'
+p2
+a(lp3
+(lp4
+g2
+aI1
+aaaa(lp5
+S'switch on'
+p6
+a(lp7
+(lp8
+S'Light is on'
+p9
+aI1
+aaaa(lp10
+S'switch off'
+p11
+a(lp12
+(lp13
+S'light is off'
+p14
+aI1
+aaaa.
