@@ -1,7 +1,7 @@
 import os
 
 # TOKEN = '563338975:AAGkHOf8GDUhZwxarPYQaZ5MaO-16uEhYms'
-TOKEN = '588186999:AAG-tenvWLHA45x7zUsZoFhdacrpfNuL-mI'  # smart path
+TOKEN = '428302944:AAFYGDhIPxTaPa1vJtlODRksGGUWU8QH6Uk'  # smart path
 SINGAPORE_ESSENTIALS = 'http://telegra.ph/Traveller-Essentials-in-Singapore-04-19'
 
 CHAT_ID = '262839968'  # blacksteak
@@ -22,3 +22,9 @@ EVENTS_BRIEF = """1- Almaty Marathon is largest amateur sport festival in Centra
 It is about 120 km from the biggest city in Kazakhstan - Almaty.
 3- Steven Aoki is an American electro house musician, record producer, DJ, and music executive. On June 1, in the territory of the Medeu sports complex, in the background of the picturesque nature: fairy-tale firs and valleys, huge mountains, an entirely new contemporary music festival will take place with the participation of the headliner - American DJ and producer, Grammy Award-winner Steve Aoki.
                """
+
+URL_LAGMAN = 'http://telegra.ph/FREE-lagman-noodles-at-restaurant-VERDI-04-19'
+URL_KOREAN = 'http://telegra.ph/Korean-Culture-Day-04-19'
+URL_BALET = 'http://telegra.ph/Ballet-Walpurgis-Night-04-19'
+URL_WINE = 'http://telegra.ph/Limitless-wine-04-19'
+URL_3 = 'http://telegra.ph/Events-04-19'
