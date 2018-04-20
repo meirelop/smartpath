@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import settings
 from settings import TOKEN
+from settings import *
 from messages import HELLO, developer
 from telebot import types
 import voice
@@ -12,7 +13,8 @@ import random
 import os
 
 bot = telebot.TeleBot(TOKEN)
-
+events = {1: LAGMAN, 2: KOREAN, 3: WINE, 4: BALET, 5: STR_3}
+event_urls = {1: URL_LAGMAN, 2: URL_KOREAN, 3: URL_WINE, 4: URL_BALET, 5: URL_3}
 
 def get_audio(file_id):
     filename = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
@@ -60,19 +62,53 @@ def handle_voice(message):
     response = voice.getOutput(voice.getAnswer(audio_text))
     bot.send_voice(message.chat.id, open(response, 'rb'))
 
+# @bot.message_handler(func=lambda message: message.text.lower() in ['events', '/events'])
+# def handle_event(message):
+#     markup = types.InlineKeyboardMarkup()
+#     message_reply = settings.EVENTS_BRIEF
+#     # button_event1 = types.InlineKeyboardButton('1', url=settings.URL_LAGMAN)
+#     # button_event2 = types.InlineKeyboardButton('2', url=settings.URL_KOREAN)
+#     # button_event3 = types.InlineKeyboardButton('3', url=settings.URL_3)
+#     # button_event4 = types.InlineKeyboardButton('4', url=settings.URL_BALET)
+#     # button_event5 = types.InlineKeyboardButton('4', url=settings.URL_WINE)
+#     # markup.row(button_event1, button_event2, button_event3, button_event4, button_event5)
+#     button1 = types.InlineKeyboardButton('1', callback_data='right')
+#     markup.row(button1)
+#     bot.send_message(message.chat.id, message_reply, reply_markup=markup)
+
 @bot.message_handler(func=lambda message: message.text.lower() in ['events', '/events'])
 def handle_event(message):
+    event = events[1]
     markup = types.InlineKeyboardMarkup()
-    message_reply = settings.EVENTS_BRIEF
-    button_event1 = types.InlineKeyboardButton('1', url=settings.URL_LAGMAN)
-    button_event2 = types.InlineKeyboardButton('2', url=settings.URL_KOREAN)
-    button_event3 = types.InlineKeyboardButton('3', url=settings.URL_3)
-    button_event4 = types.InlineKeyboardButton('4', url=settings.URL_BALET)
-    button_event5 = types.InlineKeyboardButton('4', url=settings.URL_WINE)
-    markup.row(button_event1, button_event2, button_event3, button_event4, button_event5)
-    bot.send_message(message.chat.id, message_reply, reply_markup=markup)
+    button_right = types.InlineKeyboardButton('➡️', callback_data='2')
+    button_left = types.InlineKeyboardButton('⬅️', callback_data='0')
+    button_url = types.InlineKeyboardButton('ℹ️ Full info', url=event_urls[1])
+    markup.row(button_left, button_right, button_url)
+    bot.send_message(message.chat.id, event, reply_markup=markup)
 
-@bot.message_handler(func=lambda message: message.text.lower() == 'singapore')
+@bot.callback_query_handler(func=lambda query: True)
+def hande_query(query):
+    try:
+        event = int(query.data)
+        if event > 5:
+            return None
+        elif event < 1:
+            return None
+        bot.answer_callback_query(query.id, 'Next event')
+        next_event = events[event]
+        markup = types.InlineKeyboardMarkup()
+        button_right = types.InlineKeyboardButton('➡️', callback_data=str(event + 1))
+        button_left = types.InlineKeyboardButton('⬅️', callback_data=str(event - 1))
+        button_url = types.InlineKeyboardButton('ℹ️ Full info', url=event_urls[event])
+        markup.row(button_left, button_right, button_url)
+        bot.edit_message_text(next_event,
+                              query.message.chat.id,
+                              query.message.message_id,
+                              reply_markup=markup)
+    except:
+        return None
+
+@bot.message_handler(func=lambda message: message.text.lower() in ['singapore', 'astana', 'almaty'])
 def handle_city(message):
     msg = settings.SINGAPORE_ESSENTIALS
     bot.send_message(message.chat.id, msg)
