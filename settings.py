@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
+import redis
+redis_con = redis.StrictRedis('127.0.0.1', 6379, db=8)
+redis_keys = redis_con.keys('*')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_ROOT = os.path.join(BASE_DIR, 'images')

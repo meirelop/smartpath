@@ -19,10 +19,15 @@ bot = telebot.AsyncTeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    print 'bot started'
     bot.send_message(message.chat.id, msg_hello)
     markup = types.ReplyKeyboardMarkup(True, True)
     markup.row(btn_language, rbtn_language)
     bot.send_message(message.chat.id, msg_language, reply_markup=markup)
+
+@bot.message_handler(commands=['shrug'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, msg_shrug)
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🇷🇺 русский')
 def russian_handler(message):
@@ -35,6 +40,7 @@ def english_handler(message):
 
 @bot.message_handler(func = lambda message: message.text.lower() == u'🎁 мероприятия')
 def r_events(message):
+    print '%s entered' % message.text.lower
     event = ru_events[1]
     markup = types.InlineKeyboardMarkup()
     button_right = types.InlineKeyboardButton(btn_next, callback_data='ru_2')
@@ -45,6 +51,7 @@ def r_events(message):
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🎁 events')
 def handle_event(message):
+    print '%s entered' % message.text.lower
     event = en_events[1]
     markup = types.InlineKeyboardMarkup()
     button_right = types.InlineKeyboardButton(btn_next, callback_data='en_2')
@@ -65,6 +72,7 @@ def handle_event(message):
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🆘 tips and tricks')
 def handle_event(message):
+    print '%s entered' % message.text.lower
     markup = types.ReplyKeyboardMarkup(True, True)
     markup.row(btn_emergency, btn_currency)
     markup.row(btn_weather, btn_back)
@@ -72,6 +80,7 @@ def handle_event(message):
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🆘 советы и подсказки')
 def handle_event(message):
+    print '%s entered' % message.text.lower
     markup = types.ReplyKeyboardMarkup(True, True)
     markup.row(r_btn_emergency, r_btn_currency)
     markup.row(r_btn_weather, r_btn_back)
@@ -90,14 +99,14 @@ def handle_event(message):
 def handle_event(message):
     bot.send_message(message.chat.id, url_emergency)
 
+@bot.message_handler(func=lambda message: message.text.lower() == u'☎️ экстренные номера')
+def handle_event(message):
+    bot.send_message(message.chat.id, ru_url_emergency)
+
 @bot.message_handler(func=lambda message: message.text.lower() == u'💱 currency')
 def handle_event(message):
     bot.send_message(message.chat.id, url_currency)
     bot.send_message(message.chat.id, msq_currencies)
-
-@bot.message_handler(func=lambda message: message.text.lower() == u'☎️ экстренные номера')
-def handle_event(message):
-    bot.send_message(message.chat.id, ru_url_emergency)
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'💱 валюта')
 def handle_event(message):
@@ -137,8 +146,15 @@ def hande_query(query):
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
-    message_text = message.text.lower()
+    message_text = str(message.text.lower())
     print message_text
+    for key in redis_keys:
+        key = unicode(key, 'utf-8')
+        if key in message_text:
+            answer = redis_con.get(key)
+        else:
+            answer = msg_shrug
+    bot.send_message(message.chat.id, answer)
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
@@ -152,4 +168,3 @@ if __name__ == '__main__':
         except Exception as e:
             print 'Error in main: %s' %e
             time.sleep(10)
-
