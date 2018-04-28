@@ -15,11 +15,13 @@ import random
 import os
 
 # bot = telebot.TeleBot(TOKEN)
+
 bot = telebot.AsyncTeleBot(TOKEN)
+bot.remove_webhook()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    print 'bot started'
+    print ('bot started from %s' % message.chat.id)
     bot.send_message(message.chat.id, msg_hello)
     markup = types.ReplyKeyboardMarkup(True, True)
     markup.row(btn_language, rbtn_language)
@@ -40,7 +42,7 @@ def english_handler(message):
 
 @bot.message_handler(func = lambda message: message.text.lower() == u'🎁 мероприятия')
 def r_events(message):
-    print '%s entered' % message.text.lower
+    print ('%s entered' % message.text.lower)
     event = ru_events[1]
     markup = types.InlineKeyboardMarkup()
     button_right = types.InlineKeyboardButton(btn_next, callback_data='ru_2')
@@ -51,7 +53,7 @@ def r_events(message):
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🎁 events')
 def handle_event(message):
-    print '%s entered' % message.text.lower
+    print ('%s entered' % message.text.lower)
     event = en_events[1]
     markup = types.InlineKeyboardMarkup()
     button_right = types.InlineKeyboardButton(btn_next, callback_data='en_2')
@@ -72,7 +74,7 @@ def handle_event(message):
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🆘 tips and tricks')
 def handle_event(message):
-    print '%s entered' % message.text.lower
+    print ('%s entered' % message.text)
     markup = types.ReplyKeyboardMarkup(True, True)
     markup.row(btn_emergency, btn_currency)
     markup.row(btn_weather, btn_back)
@@ -80,7 +82,7 @@ def handle_event(message):
 
 @bot.message_handler(func=lambda message: message.text.lower() == u'🆘 советы и подсказки')
 def handle_event(message):
-    print '%s entered' % message.text.lower
+    print('%s entered' % message.text.lower)
     markup = types.ReplyKeyboardMarkup(True, True)
     markup.row(r_btn_emergency, r_btn_currency)
     markup.row(r_btn_weather, r_btn_back)
@@ -141,24 +143,27 @@ def hande_query(query):
         markup.row(button_left, button_right, button_url)
         bot.edit_message_text(next_event,query.message.chat.id,query.message.message_id,reply_markup=markup)
     except Exception as e:
-        print e
-        pass
+        print(e)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     message_text = str(message.text.lower())
-    print message_text
+    print (message_text)
+    answer = msg_shrug
     for key in redis_keys:
-        key = unicode(key, 'utf-8')
+        key = key.decode('utf-8')
+        if key not in message_text:
+            continue
         if key in message_text:
             answer = redis_con.get(key)
         else:
             answer = msg_shrug
     bot.send_message(message.chat.id, answer)
 
+
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-    print message
+    print (message)
     bot.reply_to(message, message.text)
 
 if __name__ == '__main__':
@@ -166,5 +171,5 @@ if __name__ == '__main__':
         try:
             bot.polling(none_stop=True)
         except Exception as e:
-            print 'Error in main: %s' %e
+            print('Error in main: %s' %e)
             time.sleep(10)

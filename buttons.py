@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import telebot
 from telebot import types
-
+import redis
+redis_con = redis.StrictRedis('127.0.0.1', 6379, db=8)
+redis_keys = redis_con.keys('*')
 
 btn_end = "That's all"
 

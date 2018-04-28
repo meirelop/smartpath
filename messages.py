@@ -24,7 +24,7 @@ event2 = '🏔️ 🏔️ 🏔️ 🏔️ 🏔️ 🏔️ 🏔️ 🏔️ \nKok 
 event3 = '🚴‍♀ 🚴‍♂️ ️🚵‍♂️ 🚵‍♀️ \nThe second сritical Mass cycling.\n\nThis time the route of the bike ride is 10 km and will cover such streets and avenues as Al-Farabi, VOAD, Tole bi, Abylai Khan. The participants finish in the territory of the Musical Theater named after G. Musrepov.'
 event4 = '👪 👨‍👧 👩‍👧 👨‍👦 \nThe most cozy, sweet festival is "Sweet dreams".\n\n"Sweet Dreams" is a festival for the whole family, for those who like to discover new tastes and emotions.\n\nAt the festival will be presented the sweets of some of the best confectioners of the city: cakes, cakes, eclairs, capkakes, handmade chocolate and this is only a small part.'
 event5 = '🏡 👩‍🌾 👨‍🌾 🍓 \nPlaces to run in Almaty. \n\nRunning is a useful lesson that does not require special expenses. All you need is sports shoes and a good place. \n\nLast we are ready to share in todays selection of places for running in the city.'
-event6 = '🌸 🌸 🌸 🌸 🌸 🌸\nhere will be event6'
+event6 = '🌸 🌸 🌸 🌸 🌸 🌸\nThe Sakura bloom festival is an annual event of the Kazakhstan-Japan Center for Human Resource Development.\n\nAbsolutely Free of charge you can participate in the festival dedicated to the flowering of this Japanese Sakura'
 
 url_event1 = 'http://telegra.ph/AMAZING-CHARYN-KOLSAI-KAINDY-04-26'
 url_event2 = 'http://telegra.ph/TREKKING-ON-THE-PLATEAU-KOK-ZHAILAU-18-04-26'
