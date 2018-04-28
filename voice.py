@@ -20,13 +20,13 @@ def get_audio_text(filename):
         print(e)
         text = "Could not understand the speech"
     os.remove(filename)
-    print 'recognized text: %s' % text
+    print ('recognized text: %s' % text)
     return text
 
 
 def getOutput(text):
     new_file = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)) + '.wav'
-    print 'new file: %s' % new_file
+    print ('new file: %s' % new_file)
     tts = gTTS(text=text)
     tts.save(new_file)
     return new_file
@@ -50,7 +50,7 @@ def writeCorpus(corpus):
 
 
 def getAnswer(_input):
-    print '_input: %s' % _input
+    print ('_input: %s' % _input)
     corpus = readCorpus()
     output = ("I don't know what you're saying. Please teach me")
     for ind1 in range(len(corpus)):
@@ -61,7 +61,7 @@ def getAnswer(_input):
                 prob.append(corpus[ind1][1][ind2][1])
                 words.append(corpus[ind1][1][ind2][0])
             output = numpy.random.choice(words, p=numpy.array(prob)/sum(prob))
-    print 'output is: %s' % output
+    print ('output is: %s' % output)
     return output
 
 
