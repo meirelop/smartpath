@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
-import redis
-redis_con = redis.StrictRedis('127.0.0.1', 6379, db=8)
-redis_keys = redis_con.keys('*')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGES_ROOT = os.path.join(BASE_DIR, 'images')
 
 #BOT TOKEN
-TOKEN = '428302944:AAFYGDhIPxTaPa1vJtlODRksGGUWU8QH6Uk'
+TOKEN = '428302944:AAFllxE5qct6JF8OK1uhyGBvczOz_i8CZQM'
 
 #CHAT_ID = '262839968'  # blacksteak
 GOOGLE_PLACES_API = 'AIzaSyCbCeTWSqRfBsolOQdMl3GMJAAG6lK-Mso'

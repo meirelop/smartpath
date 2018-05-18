@@ -6,11 +6,11 @@ def set_to_redis():
     import redis
     redis_con = redis.StrictRedis('127.0.0.1', 6379, db=8)
     # Load in the workbook
-    file_excel = '/home/meirkhan/Desktop/bot/dict_ru.xlsx'
+    file_excel = '/home/meirkhan/Desktop/bot/qa_eng.xlsx'
     wb = load_workbook(file_excel)
 
     # Get sheet names
-    sheet = wb['Sheet1']
+    sheet = wb['Лист1']
     data_length = sheet.max_row
 
     for rownum in range(1, data_length):

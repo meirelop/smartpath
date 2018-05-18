@@ -14,10 +14,10 @@ import string
 import random
 import os
 
-# bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(TOKEN)
 
-bot = telebot.AsyncTeleBot(TOKEN)
-bot.remove_webhook()
+# bot = telebot.AsyncTeleBot(TOKEN)
+# bot.remove_webhook()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
